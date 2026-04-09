@@ -86,8 +86,6 @@ type EventAttr = {
   maxParticipants: number | null;
 };
 
-class SpringFestival {}
-
 const test = new FestivalEvent.Builder()
   .setName("name")
   .setStartHour(30)
