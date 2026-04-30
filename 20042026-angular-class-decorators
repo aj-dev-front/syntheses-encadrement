@@ -1,0 +1,41 @@
+# Angular Class Decorators
+
+Angular intègre des décorateurs de classe permettant de définir le comportement de la classe au sein de l'écosystème Angular.
+Un décorateur se présente comme suit : `@DecoratorName(params)`. Les params se présentent la plupart du temps comme un objet.
+
+## @Component({})
+
+C'est le décorateur des composants graphique d'Angular.
+Le seul attribut de params obligatoire est le template/templateUrl.
+
+## @Injectable({providedIn: 'root' | 'plateform' | 'any'})
+
+Ce décorateur défini une class injectée dans l'arbre d'injection.
+Le nom de la classe peut alors être manipulé comme n'importe quel jeton d'injection :
+
+- `private readonly service = inject(<ici le nom de la classe injectable>)`
+- `providers: [<ici le nom de la classe injectable>]`
+
+On utilise le providedIn: 'root', les autres valeurs étants circonstancielles. Un `@Service()` strictement équivalent à `@Injectable({providedIn: 'root'})` est introduit en Angular 22.
+
+## @Pipe({name: 'nomPipe'})
+
+Défini un pipe qui peut alors être utilisé dans un template.
+Un pipe sert à transformer déclarativement une donnée du template.
+Un exemple d'usage est la mise en forme textuelle : `{{montant | currency}}` => prend le montant (12) et le met en forme pour avoir une somme d'argent (12€). CurrencyPipe est un pipe dit built-in, déjà implémenté par Angular.
+On peut passer des argument au pipe comme suit : `| nomPipe :arg1 :arg2`;
+
+La classe liée à un pipe DOIT implémenter l'interface Pipetransform, et donc comporter une fonction `transform(value: unknown, ...args: unknown[]): unknown;`.
+
+## @Directive({selector: '[nomDirective]'})
+Défini une directive qui s'applique à un élement du DOM.
+Il sert à définir un comportement répétable à appliquer à une balise.
+
+Un exemple d'usage est de modifier l'aspect d'une balise en fonction des actions utilisateur. (du surlignage dans l'exemple de la doc).
+
+On accède au DOM de l'élément grace à `element = inject(ElementRef)`;
+On défini
+
+# Ressources
+- (Doc Pipe)[https://angular.dev/guide/templates/pipes]
+- (Doc Directive)[https://angular.dev/guide/directives/attribute-directives]
